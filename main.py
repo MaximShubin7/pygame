@@ -10,7 +10,7 @@ screen_height = 1080
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Formula 1')
 background_image = pygame.image.load('fon.png')  # Путь к вашему изображению
-
+#1
 
 def map():
     new_screen3 = pygame.display.set_mode((1920, 1080))
