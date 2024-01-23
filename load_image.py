@@ -2,7 +2,7 @@ import os
 import sys
 import pygame as pg
 
-
+#загрузить изображение
 def load_image(name, colorkey=None):
     fullname = os.path.join('images', name)
     if not os.path.isfile(fullname):

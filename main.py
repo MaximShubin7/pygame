@@ -8,7 +8,7 @@ import pymunk.pygame_util
 from Lava import Lava
 
 pymunk.pygame_util.positive_y_is_up = False
-background_colour = (156, 229, 255)
+background_colour = (44, 70, 145)
 RES = WIDTH, HEIGHT = 1000, 600
 FPS = 60
 
@@ -34,7 +34,6 @@ for x in range(0, 1001, 40):
 
 while True:
     surface.fill(background_colour)
-
     for i in pg.event.get():
         if i.type == pg.QUIT:
             exit()
