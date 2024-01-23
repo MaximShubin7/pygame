@@ -11,10 +11,10 @@ pg.init()
 surface = pg.display.set_mode(RES)
 clock = pg.time.Clock()
 draw_options = pymunk.pygame_util.DrawOptions(surface)
-
+#физика предметов
 space = pymunk.Space()
 space.gravity = 0, 8000
-segment_shape = pymunk.Segment(space.static_body, (1, HEIGHT), (WIDTH, HEIGHT), 26)
+segment_shape = pymunk.Segment(space.static_body, (1, HEIGHT), (WIDTH, HEIGHT), 150)
 space.add(segment_shape)
 segment_shape.elasticity = 0.4
 segment_shape.friction = 1.0
