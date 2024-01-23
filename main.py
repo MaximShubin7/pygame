@@ -25,7 +25,9 @@ segment_shape.elasticity = 0.4
 segment_shape.friction = 1.0
 
 all_sprites = pg.sprite.Group()
-Lava(all_sprites)
+for x in range(0, 1001, 40):
+    for y in range(450, 601, 40):
+        Lava(all_sprites, x, y)
 
 while True:
     surface.fill(background_colour)
@@ -33,9 +35,9 @@ while True:
     for i in pg.event.get():
         if i.type == pg.QUIT:
             exit()
-    all_sprites.draw(surface)
-    all_sprites.update()
     space.step(1 / FPS)
     space.debug_draw(draw_options)
+    all_sprites.draw(surface)
+    all_sprites.update()
     pg.display.flip()
     clock.tick(FPS)
