@@ -8,7 +8,7 @@ import pymunk.pygame_util
 from Lava import Lava
 
 pymunk.pygame_util.positive_y_is_up = False
-background_colour = (44, 70, 145)
+background_colour = (44, 70, 145)#
 RES = WIDTH, HEIGHT = 1000, 600
 FPS = 60
 
