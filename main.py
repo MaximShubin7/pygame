@@ -27,7 +27,10 @@ segment_shape.friction = 1.0
 all_sprites = pg.sprite.Group()
 for x in range(0, 1001, 40):
     for y in range(500, 601, 40):
-        Lava(all_sprites, x, y)
+        Lava(all_sprites, x, y, True)
+for x in range(0, 1001, 40):
+    for y in range(500, 601, 40):
+        Lava(all_sprites, x, y, False)
 
 while True:
     surface.fill(background_colour)
