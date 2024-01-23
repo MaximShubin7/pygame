@@ -1,6 +1,6 @@
 import pygame
 
-background_colour = (234, 212, 252)
+background_colour = (37, 150, 190)
 screen = pygame.display.set_mode((1000, 600))
 pygame.display.set_caption('gmfdjgfgfdg')
 screen.fill(background_colour)
