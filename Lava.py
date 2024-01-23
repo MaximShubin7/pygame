@@ -3,7 +3,7 @@ import pygame as pg
 
 
 class Lava(pg.sprite.Sprite):
-    image = load_image("lava_texture.jpg")
+    image = load_image("lava_texture.png")
 
     def __init__(self, group, x, y):
         super().__init__(group)

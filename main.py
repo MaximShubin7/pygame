@@ -19,14 +19,14 @@ draw_options = pymunk.pygame_util.DrawOptions(surface)
 # физика предметов
 space = pymunk.Space()
 space.gravity = 0, 8000
-segment_shape = pymunk.Segment(space.static_body, (1, HEIGHT), (WIDTH, HEIGHT), 150)
+segment_shape = pymunk.Segment(space.static_body, (1, HEIGHT), (WIDTH, HEIGHT), 100)
 space.add(segment_shape)
 segment_shape.elasticity = 0.4
 segment_shape.friction = 1.0
 
 all_sprites = pg.sprite.Group()
 for x in range(0, 1001, 40):
-    for y in range(450, 601, 40):
+    for y in range(500, 601, 40):
         Lava(all_sprites, x, y)
 
 while True:
