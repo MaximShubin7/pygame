@@ -1,6 +1,6 @@
 import random
 
-from load_image import load_image
+from loadimage import load_image
 import pygame as pg
 
 
