@@ -23,7 +23,6 @@ class Level:
         pymunk.pygame_util.positive_y_is_up = False
         # Инициализация Pygame
         pg.init()
-        pg.font.init()
         # Установка размеров окна
         self.window_width = 1000
         self.window_height = 600
@@ -61,14 +60,23 @@ class Level:
         pg.display.flip()
         line = []
         start_time = 0
+        r = False
         while running1:
+            if r:
+                continue
             if flag and pg.time.get_ticks() - start_time >= 5000:
-                pg.quit()
-                sys.exit()
+                self.window.fill((0, 0, 0))
+                font = pg.font.SysFont('Comic Sans MS', 100)
+                text = font.render(f'Победа!!! Класс!!!', False, (255, 255, 255))
+                self.window.blit(text, (100, 530))
+                pg.display.flip()
+                r = True
+                continue
             if flag:
-                font = pg.font.SysFont('Comic Sans MS', 104)
-                text = font.render(f'{(pg.time.get_ticks() - start_time) // 1000}', False, (0, 0, 0))
-                self.window.blit(text, (0, 0))
+                font = pg.font.SysFont('Comic Sans MS', 50)
+                text = font.render(f'{(pg.time.get_ticks() - start_time) // 1000} сек.', False, (0, 0, 0))
+                self.window.blit(text, (430, 10))
+                pg.display.flip()
                 pos = self.square_body.position
                 for j in self.all_sprites:
                     if j.__class__.__name__ == 'Water':
