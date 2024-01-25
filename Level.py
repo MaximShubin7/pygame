@@ -10,30 +10,34 @@ from Grass import Grass
 from Thorn import Thorn
 
 
+def equal(a, b):
+    return abs(a - b) <= 20
+
+
 class Level:
     def __init__(self, type):
         self.all_sprites = pg.sprite.Group()
         self.type = type
 
     def run_level(self):
+        pymunk.pygame_util.positive_y_is_up = False
         # Инициализация Pygame
         pg.init()
         # Установка размеров окна
         self.window_width = 1000
         self.window_height = 600
         self.FPS = 60
-        window = pg.display.set_mode((self.window_width, self.window_height))
-        window.fill((245, 234, 233))
+        self.window = pg.display.set_mode((self.window_width, self.window_height))
+        self.window.fill((245, 234, 233))
         # Отображение изображения на всем окне
         background = load_image('bricks.png')
         background = pg.transform.scale(background, (1000, 600))
         background.set_alpha(100)
-        window.blit(background, (0, 0))
-        pg.display.flip()
+        self.window.blit(background, (0, 0))
         # физика
 
         clock = pg.time.Clock()
-        draw_options = pymunk.pygame_util.DrawOptions(window)
+        draw_options = pymunk.pygame_util.DrawOptions(self.window)
 
         # настройки Pymunk
         self.space = pymunk.Space()
@@ -41,20 +45,80 @@ class Level:
 
         # Основной цикл программы
         running1 = True
+        self.create_body((575, 200))
         self.generate_blocks()
+        flag = False
+        f = False
+        dragging = False
+        self.window.fill((245, 234, 233))
+        self.window.blit(background, (0, 0))
+        self.generate_blocks()
+        self.all_sprites.draw(self.window)
+        im = load_image('grass.png')
+        im = pg.transform.scale(im, (60, 60))
+        self.window.blit(im, (550, 200))
+        pg.display.flip()
+        line = []
         while running1:
-            for event in pg.event.get():
-                if event.type == pg.QUIT:
-                    running1 = False
-                    pg.quit()
-                    sys.exit()
-            self.space.step(1 / self.FPS)
-            self.space.debug_draw(draw_options)
-            # Обновление экрана
-            self.all_sprites.draw(window)
-            self.all_sprites.update()
-            pg.display.flip()
-            clock.tick(self.FPS)
+            if flag:
+                pos = self.square_body.position
+                for j in self.all_sprites:
+                    if j.__class__.__name__ == 'Water':
+                        x = (j.rect.x + 20) - pos[0]
+                        y = j.rect.y - pos[1]
+                        if x >= -40 and y >= -40 and x <= 40 and y <= 40:
+                            pg.quit()
+                            sys.exit()
+                    if j.__class__.__name__ == 'Thorn':
+                        x = (j.rect.x + 20) - pos[0]
+                        y = j.rect.y - pos[1]
+                        if x >= -40 and y >= -10 and x <= 40 and y <= 10:
+                            pg.quit()
+                            sys.exit()
+                self.window.fill((245, 234, 233))
+                self.window.blit(background, (0, 0))
+                self.generate_blocks()
+                for event in pg.event.get():
+                    if event.type == pg.QUIT:
+                        running1 = False
+                        pg.quit()
+                        sys.exit()
+                self.space.step(1 / self.FPS)
+                self.space.debug_draw(draw_options)
+                # Обновление экрана
+                self.all_sprites.draw(self.window)
+                pg.display.flip()
+                clock.tick(self.FPS)
+            else:
+                for event in pg.event.get():
+                    if event.type == pg.MOUSEBUTTONUP:
+                        if f:
+                            self.draw_line(line)
+                            flag = True
+                        f = True
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        dragging = True
+                    if event.type == pg.MOUSEMOTION:
+                        if dragging:
+                            if len(line) > 0:
+                                pg.draw.line(self.window, (0, 0, 0), line[-1], event.pos, 5)
+                            else:
+                                pg.draw.line(self.window, (0, 0, 0), event.pos, event.pos, 5)
+                            line.append(event.pos)
+                            pg.display.flip()
+
+    def draw_line(self, array):
+        # добавление объекта
+        square_mass, square_size = 1, (60, 60)
+        body = pymunk.Body(square_mass, 500)
+        print(array[0])
+        body.position = (0, 0)
+        s = []
+        for i in range(1, len(array)):
+            s.append(pymunk.Segment(body, array[i - 1], array[i], 5))
+            s[-1].density = 1
+            s[-1].elasticity = 0.999
+        self.space.add(body, *s)
 
     def generate_blocks(self):
         if self.type == 1:
@@ -81,9 +145,21 @@ class Level:
             self.space.add(platform)
             platform.elasticity = 0.8
             platform.friction = 1.0
+
         if self.type == 2:
             pass
         if self.type == 3:
             pass
         if self.type == 4:
             pass
+
+    def create_body(self, pos):
+        # добавление объекта
+        square_mass, square_size = 1, (60, 60)
+        self.square_moment = pymunk.moment_for_box(square_mass, square_size)
+        self.square_body = pymunk.Body(square_mass, self.square_moment)
+        self.square_body.position = pos
+        self.square_shape = pymunk.Poly.create_box(self.square_body, square_size)
+        self.square_shape.elasticity = 0.4
+        self.square_shape.friction = 1.0
+        self.space.add(self.square_body, self.square_shape)
