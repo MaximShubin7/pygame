@@ -54,7 +54,7 @@ class Level:
         self.window.blit(background, (0, 0))
         self.generate_blocks()
         self.all_sprites.draw(self.window)
-        im = load_image('grass.png')
+        im = load_image('grass.png')#
         im = pg.transform.scale(im, (60, 60))
         self.window.blit(im, (550, 200))
         pg.display.flip()
