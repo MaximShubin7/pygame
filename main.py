@@ -4,7 +4,7 @@ import pygame as pg
 import pymunk.pygame_util
 from random import randrange
 from loadimage import load_image
-from Lava import Lava
+from Level import Level
 
 pymunk.pygame_util.positive_y_is_up = False
 background_colour = (44, 70, 145)
@@ -123,13 +123,16 @@ def level_window():
                 x, y = event.pos
                 if 50 <= x <= 150 and 100 <= y <= 200:
                     # Открытие 1 лвла
-                    pass
+                    level = Level(1)
+                    level.run_level()
                 elif 175 <= x <= 275 and 100 <= y <= 200:
                     # Открытие 2 лвла
-                    pass
+                    level = Level(2)
+                    level.run_level()
                 elif 300 <= x <= 400 and 100 <= y <= 200:
                     # Открытие 3 лвла
-                    pass
+                    level = Level(3)
+                    level.run_level()
                 elif 420 <= x <= 580 and 480 <= y <= 520:
                     # Вернуться в главное меню
                     running1 = False
