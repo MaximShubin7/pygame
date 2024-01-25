@@ -23,6 +23,7 @@ class Level:
         pymunk.pygame_util.positive_y_is_up = False
         # Инициализация Pygame
         pg.init()
+        pg.font.init()
         # Установка размеров окна
         self.window_width = 1000
         self.window_height = 600
@@ -54,13 +55,20 @@ class Level:
         self.window.blit(background, (0, 0))
         self.generate_blocks()
         self.all_sprites.draw(self.window)
-        im = load_image('grass.png')#
+        im = load_image('grass.png')  #
         im = pg.transform.scale(im, (60, 60))
         self.window.blit(im, (550, 200))
         pg.display.flip()
         line = []
+        start_time = 0
         while running1:
+            if flag and pg.time.get_ticks() - start_time >= 5000:
+                pg.quit()
+                sys.exit()
             if flag:
+                font = pg.font.SysFont('Comic Sans MS', 104)
+                text = font.render(f'{(pg.time.get_ticks() - start_time) // 1000}', False, (0, 0, 0))
+                self.window.blit(text, (0, 0))
                 pos = self.square_body.position
                 for j in self.all_sprites:
                     if j.__class__.__name__ == 'Water':
@@ -93,6 +101,7 @@ class Level:
                 for event in pg.event.get():
                     if event.type == pg.MOUSEBUTTONUP:
                         if f:
+                            start_time = pg.time.get_ticks()
                             self.draw_line(line)
                             flag = True
                         f = True
@@ -111,7 +120,6 @@ class Level:
         # добавление объекта
         square_mass, square_size = 1, (60, 60)
         body = pymunk.Body(square_mass, 500)
-        print(array[0])
         body.position = (0, 0)
         s = []
         for i in range(1, len(array)):
