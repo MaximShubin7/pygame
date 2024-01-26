@@ -8,6 +8,7 @@ from Water import Water
 from Ground import Ground
 from Grass import Grass
 from Thorn import Thorn
+from Herobrine import Herobrine
 
 
 def equal(a, b):
@@ -53,11 +54,8 @@ class Level:
         self.window.fill((245, 234, 233))
         self.window.blit(background, (0, 0))
         self.generate_blocks()
+        Herobrine(self.all_sprites, 550, 200)
         self.all_sprites.draw(self.window)
-
-        im = load_image('grass.png')
-        im = pg.transform.scale(im, (60, 60))
-        self.window.blit(im, (550, 200))
         pg.display.flip()
 
         line = []
@@ -179,11 +177,52 @@ class Level:
             platform.friction = 1.0
 
         if self.type == 2:
-            pass
+            for x in range(0, 1001, 40):
+                Water(self.all_sprites, x, 560)
+                Water(self.all_sprites, x, 520)
+                Water(self.all_sprites, x, 480)
+            Ground(self.all_sprites, 380, 320)
+            Ground(self.all_sprites, 340, 320)
+            Ground(self.all_sprites, 420, 320)
+            Grass(self.all_sprites, 300, 320)
+            Grass(self.all_sprites, 460, 320)
+            Thorn(self.all_sprites, 380, 280)
+            Thorn(self.all_sprites, 340, 280)
+            Thorn(self.all_sprites, 420, 280)
+            # платформа
+            segment_shape = pymunk.Segment(self.space.static_body, (2, self.window_height),
+                                           (self.window_width, self.window_height), 120)
+            self.space.add(segment_shape)
+            segment_shape.elasticity = 0.8
+            segment_shape.friction = 1.0
+            platform = pymunk.Segment(self.space.static_body, (320, 340),
+                                      (480, 340), 20)
+            self.space.add(platform)
+            platform.elasticity = 0.8
+            platform.friction = 1.0
         if self.type == 3:
-            pass
-        if self.type == 4:
-            pass
+            for x in range(0, 1001, 40):
+                Water(self.all_sprites, x, 560)
+                Water(self.all_sprites, x, 520)
+                Water(self.all_sprites, x, 480)
+            Ground(self.all_sprites, 380, 320)
+            Ground(self.all_sprites, 640, 320)
+            # платформа
+            segment_shape = pymunk.Segment(self.space.static_body, (2, self.window_height),
+                                           (self.window_width, self.window_height), 120)
+            self.space.add(segment_shape)
+            segment_shape.elasticity = 0.8
+            segment_shape.friction = 1.0
+            platform = pymunk.Segment(self.space.static_body, (400, 340),
+                                      (400, 340), 20)
+            self.space.add(platform)
+            platform.elasticity = 0.8
+            platform.friction = 1.0
+            platform2 = pymunk.Segment(self.space.static_body, (600, 340),
+                                       (600, 340), 20)
+            self.space.add(platform2)
+            platform2.elasticity = 0.8
+            platform2.friction = 1.0
 
     def create_body(self, pos):
         # добавление объекта
