@@ -28,7 +28,7 @@ def rules_window():
     red = (255, 0, 0)
 
     # Создание объекта шрифта
-    font = pg.font.Font(None, 104)
+    font = pg.font.SysFont('Comic Sans MS', 104)
 
     # Основной цикл программы
     running2 = True
@@ -51,7 +51,7 @@ def rules_window():
         window.blit(text, text_rect)
 
         # текст правил
-        font2 = pg.font.Font(None, 50)
+        font2 = pg.font.SysFont('Comic Sans MS', 35)
         text1 = font2.render('Save the Dog — Игра головоломка, в которой вы', True, black)
         window.blit(text1, (60, 120))
         text2 = font2.render('будете рисовать линии пальцем или мышкой, чтобы', True, black)
@@ -72,7 +72,7 @@ def rules_window():
         window.blit(text9, (60, 440))
 
         # кнопка назад
-        font1 = pg.font.Font(None, 72)
+        font1 = pg.font.SysFont('Comic Sans MS', 72)
         exit_text = font1.render('Назад', True, red)
         exit_rect = exit_text.get_rect(center=(window_width / 2, window_height / 2 + 200))
         window.blit(exit_text, exit_rect)
@@ -102,7 +102,7 @@ def level_window():
     red = (255, 0, 0)
 
     # Создание объекта шрифта
-    font = pg.font.Font(None, 104)
+    font = pg.font.SysFont('Comic Sans MS', 104)
 
     # Основной цикл программы
     running1 = True
@@ -139,18 +139,18 @@ def level_window():
         # Создание квадратов с надписями
         level1 = pg.draw.rect(window, yellow, (50, 100, 100, 100))
         text1 = font.render('1', True, black)
-        window.blit(text1, (80, 120))
+        window.blit(text1, (80, 80))
 
         level2 = pg.draw.rect(window, yellow, (175, 100, 100, 100))
         text2 = font.render('2', True, black)
-        window.blit(text2, (205, 120))
+        window.blit(text2, (205, 80))
 
         level3 = pg.draw.rect(window, yellow, (300, 100, 100, 100))
         text3 = font.render('3', True, black)
-        window.blit(text3, (330, 120))
+        window.blit(text3, (330, 80))
 
         # кнопка назад
-        font1 = pg.font.Font(None, 72)
+        font1 = pg.font.SysFont('Comic Sans MS', 72)
         exit_text = font1.render('Назад', True, red)
         exit_rect = exit_text.get_rect(center=(window_width / 2, window_height / 2 + 200))
         window.blit(exit_text, exit_rect)
@@ -181,7 +181,7 @@ def start_window():
     yellow = (255, 255, 0)
 
     # Создание объекта шрифта
-    font = pg.font.Font(None, 104)
+    font = pg.font.SysFont('Comic Sans MS', 104)
 
     # Основной цикл программы
     running = True

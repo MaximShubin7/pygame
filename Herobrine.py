@@ -16,5 +16,8 @@ class Herobrine(pg.sprite.Sprite):
         self.rect.y = y
         self.alpha = 255
 
+    def set_pos(self, pos):
+        self.rect.x, self.rect.y = pos
+
     def update(self):
         pass

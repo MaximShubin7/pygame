@@ -69,16 +69,16 @@ class Level:
                 background = pg.transform.scale(background, (1000, 600))
                 self.window.blit(background, (0, 0))
 
-                font = pg.font.SysFont('Comic Sans MS', 100)
-                text = font.render(f'Победа!!!', False, (255, 255, 255))
-                self.window.blit(text, (300, 100))
+                font = pg.font.SysFont('Comic Sans MS', 140)
+                text = font.render(f'Победа!!!', False, (0, 255, 0))
+                self.window.blit(text, (250, 100))
 
-                font1 = pg.font.Font(None, 72)
+                font1 = pg.font.SysFont('Comic Sans MS', 72)
                 exit_text = font1.render('К выбору уровня', True, (0, 255, 0))
                 exit_rect = exit_text.get_rect(center=(self.window_width / 2 - 150, self.window_height / 2 + 50))
                 self.window.blit(exit_text, exit_rect)
 
-                font1 = pg.font.Font(None, 72)
+                font1 = pg.font.SysFont('Comic Sans MS', 72)
                 exit_text = font1.render('Назад', True, (255, 0, 0))
                 exit_rect = exit_text.get_rect(center=(self.window_width / 2 + 300, self.window_height / 2 + 50))
                 self.window.blit(exit_text, exit_rect)
@@ -93,18 +93,62 @@ class Level:
 
                 pos = self.square_body.position
                 for j in self.all_sprites:
+                    if j.__class__.__name__ == 'Herobrine':
+                        j.set_pos(pos)
                     if j.__class__.__name__ == 'Water':
                         x = (j.rect.x + 20) - pos[0]
                         y = j.rect.y - pos[1]
                         if x >= -40 and y >= -40 and x <= 40 and y <= 40:
-                            pg.quit()
-                            sys.exit()
+                            background = load_image('resultfon.jpg')
+                            background = pg.transform.scale(background, (1000, 600))
+                            self.window.blit(background, (0, 0))
+
+                            font = pg.font.SysFont('Comic Sans MS', 100)
+                            text = font.render(f'Ликвидирован', False, (255, 0, 0))
+                            self.window.blit(text, (225, 100))
+
+                            font1 = pg.font.SysFont('Comic Sans MS', 72)
+                            exit_text = font1.render('К выбору уровня', True, (0, 255, 0))
+                            exit_rect = exit_text.get_rect(
+                                center=(self.window_width / 2 - 150, self.window_height / 2 + 50))
+                            self.window.blit(exit_text, exit_rect)
+
+                            font1 = pg.font.SysFont('Comic Sans MS', 72)
+                            exit_text = font1.render('Назад', True, (255, 0, 0))
+                            exit_rect = exit_text.get_rect(
+                                center=(self.window_width / 2 + 300, self.window_height / 2 + 50))
+                            self.window.blit(exit_text, exit_rect)
+                            pg.display.flip()
+                            r = True
+                            break
                     if j.__class__.__name__ == 'Thorn':
                         x = (j.rect.x + 20) - pos[0]
                         y = j.rect.y - pos[1]
                         if x >= -40 and y >= -10 and x <= 40 and y <= 10:
-                            pg.quit()
-                            sys.exit()
+                            background = load_image('resultfon.jpg')
+                            background = pg.transform.scale(background, (1000, 600))
+                            self.window.blit(background, (0, 0))
+
+                            font = pg.font.SysFont('Comic Sans MS', 100)
+                            text = font.render(f'Ликвидирован', False, (255, 0, 0))
+                            self.window.blit(text, (225, 100))
+
+                            font1 = pg.font.SysFont('Comic Sans MS', 72)
+                            exit_text = font1.render('К выбору уровня', True, (0, 255, 0))
+                            exit_rect = exit_text.get_rect(
+                                center=(self.window_width / 2 - 150, self.window_height / 2 + 50))
+                            self.window.blit(exit_text, exit_rect)
+
+                            font1 = pg.font.SysFont('Comic Sans MS', 72)
+                            exit_text = font1.render('Назад', True, (255, 0, 0))
+                            exit_rect = exit_text.get_rect(
+                                center=(self.window_width / 2 + 300, self.window_height / 2 + 50))
+                            self.window.blit(exit_text, exit_rect)
+                            pg.display.flip()
+                            r = True
+                            break
+                if r:
+                    continue
                 self.window.fill((245, 234, 233))
                 self.window.blit(background, (0, 0))
                 self.generate_blocks()
