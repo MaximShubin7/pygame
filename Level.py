@@ -296,7 +296,7 @@ class Level:
                         if 700 <= x <= 1000 and 300 <= y <= 400:
                             start_window()
 
-            if flag and pg.time.get_ticks() - start_time >= 5000:
+            if flag and pg.time.get_ticks() - start_time >= 10000:
                 background = load_image('resultfon.jpg')
                 background = pg.transform.scale(background, (1000, 600))
                 self.window.blit(background, (0, 0))

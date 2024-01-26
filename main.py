@@ -164,7 +164,7 @@ def start_window():
     pg.init()
     pg.mixer.music.load('music.mp3')
     pg.mixer.music.play(-1)
-    pg.mixer.music.set_volume(0.1)
+    pg.mixer.music.set_volume(0.5)
     # Установка размеров окна
     window_width = 1000
     window_height = 600
