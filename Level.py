@@ -105,9 +105,11 @@ def level_window():
     pg.display.flip()
 
     # Определение цветов
-    black = (0, 0, 0)
-    yellow = (255, 255, 0)
-    red = (255, 0, 0)
+    with open('colors.txt') as f:
+        data = f.read()
+        print(data)
+        js = json.loads(data)
+        black, yellow, red = tuple(js['black']), tuple(js['yellow']), tuple(js['red'])
 
     # Создание объекта шрифта
     font = pg.font.SysFont('Comic Sans MS', 104)
