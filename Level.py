@@ -54,10 +54,12 @@ class Level:
         self.window.blit(background, (0, 0))
         self.generate_blocks()
         self.all_sprites.draw(self.window)
-        im = load_image('grass.png')  #
+
+        im = load_image('grass.png')
         im = pg.transform.scale(im, (60, 60))
         self.window.blit(im, (550, 200))
         pg.display.flip()
+
         line = []
         start_time = 0
         r = False
@@ -65,10 +67,23 @@ class Level:
             if r:
                 continue
             if flag and pg.time.get_ticks() - start_time >= 5000:
-                self.window.fill((0, 0, 0))
+                background = load_image('resultfon.jpg')
+                background = pg.transform.scale(background, (1000, 600))
+                self.window.blit(background, (0, 0))
+
                 font = pg.font.SysFont('Comic Sans MS', 100)
-                text = font.render(f'Победа!!! Класс!!!', False, (255, 255, 255))
-                self.window.blit(text, (100, 530))
+                text = font.render(f'Победа!!!', False, (255, 255, 255))
+                self.window.blit(text, (300, 100))
+
+                font1 = pg.font.Font(None, 72)
+                exit_text = font1.render('К выбору уровня', True, (0, 255, 0))
+                exit_rect = exit_text.get_rect(center=(self.window_width / 2 - 150, self.window_height / 2 + 50))
+                self.window.blit(exit_text, exit_rect)
+
+                font1 = pg.font.Font(None, 72)
+                exit_text = font1.render('Назад', True, (255, 0, 0))
+                exit_rect = exit_text.get_rect(center=(self.window_width / 2 + 300, self.window_height / 2 + 50))
+                self.window.blit(exit_text, exit_rect)
                 pg.display.flip()
                 r = True
                 continue
@@ -77,6 +92,7 @@ class Level:
                 text = font.render(f'{(pg.time.get_ticks() - start_time) // 1000} сек.', False, (0, 0, 0))
                 self.window.blit(text, (430, 10))
                 pg.display.flip()
+
                 pos = self.square_body.position
                 for j in self.all_sprites:
                     if j.__class__.__name__ == 'Water':
