@@ -1,8 +1,7 @@
-import os
+import json
 import sys
 import pygame as pg
 import pymunk.pygame_util
-from random import randrange
 from loadimage import load_image
 from Water import Water
 from Ground import Ground
@@ -107,7 +106,6 @@ def level_window():
     # Определение цветов
     with open('colors.txt') as f:
         data = f.read()
-        print(data)
         js = json.loads(data)
         black, yellow, red = tuple(js['black']), tuple(js['yellow']), tuple(js['red'])
 
@@ -253,13 +251,14 @@ class Level:
         self.FPS = 60
         self.window = pg.display.set_mode((self.window_width, self.window_height))
         self.window.fill((245, 234, 233))
+
         # Отображение изображения на всем окне
         background = load_image('bricks.png')
         background = pg.transform.scale(background, (1000, 600))
         background.set_alpha(100)
         self.window.blit(background, (0, 0))
-        # физика
 
+        # физика
         clock = pg.time.Clock()
         draw_options = pymunk.pygame_util.DrawOptions(self.window)
 
@@ -329,6 +328,7 @@ class Level:
                 for j in self.all_sprites:
                     if j.__class__.__name__ == 'Herobrine':
                         j.set_pos(pos)
+
                     if j.__class__.__name__ == 'Water':
                         x = (j.rect.x + 20) - pos[0]
                         y = j.rect.y - pos[1]
@@ -391,6 +391,7 @@ class Level:
                         running1 = False
                         pg.quit()
                         sys.exit()
+
                 self.space.step(1 / self.FPS)
                 self.space.debug_draw(draw_options)
                 # Обновление экрана
@@ -459,11 +460,14 @@ class Level:
                 Water(self.all_sprites, x, 560)
                 Water(self.all_sprites, x, 520)
                 Water(self.all_sprites, x, 480)
+
             Ground(self.all_sprites, 380, 320)
             Ground(self.all_sprites, 340, 320)
             Ground(self.all_sprites, 420, 320)
+
             Grass(self.all_sprites, 300, 320)
             Grass(self.all_sprites, 460, 320)
+
             Thorn(self.all_sprites, 380, 280)
             Thorn(self.all_sprites, 340, 280)
             Thorn(self.all_sprites, 420, 280)

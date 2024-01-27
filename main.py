@@ -1,8 +1,5 @@
-import os
 import sys
 import pygame as pg
-import pymunk.pygame_util
-from random import randrange
 from loadimage import load_image
 from Level import Level
 import json
@@ -100,7 +97,6 @@ def level_window():
     # Определение цветов
     with open('colors.txt') as f:
         data = f.read()
-        print(data)
         js = json.loads(data)
         black, yellow, red = tuple(js['black']), tuple(js['yellow']), tuple(js['red'])
     # Создание объекта шрифта

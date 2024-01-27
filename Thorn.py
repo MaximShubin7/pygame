@@ -1,5 +1,3 @@
-import random
-
 from loadimage import load_image
 import pygame as pg
 
